@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,11 @@ public class GuessInitialServlet extends HttpServlet{
 		request.getSession().setAttribute("count", count);
 		request.getSession().setAttribute("random", random);
 		
-		response.sendRedirect(result);	//转向其它页面
+		try {
+			request.getRequestDispatcher(result).forward(request, response);	//转向其它页面
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
